@@ -105,4 +105,7 @@ venv.bak/
 
 
 # datasets
-black_white_dataset
+datasets
+cuda-testing
+cuda-9.2-env
+cyclegan_checkpoints
