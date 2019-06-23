@@ -10,47 +10,10 @@ import torch.nn.functional as F
 import torch.optim as optim
 from PIL import Image
 import PIL
+from CNN import CNN
+import face_classification
 sys.path.insert(0, '../../pytorch-CycleGAN-and-pix2pix')
 import test_custom
-class CNN(nn.Module):
-
-    # Constructor
-    def __init__(self):
-        # Call parent constructor
-        super().__init__();
-        # Create convolutional layers
-        self.conv_layers = nn.Sequential(
-            # Layer 1
-            nn.Conv2d(3, 64, kernel_size=3, padding=0, stride=1),
-            nn.ReLU(),
-            # Layer 2
-            nn.Conv2d(64, 128, kernel_size=3, padding=0, stride=1),
-            nn.ReLU(),
-            # Layer 3
-            nn.Conv2d(128, 128, kernel_size=3, padding=0, stride=1),
-            nn.ReLU(),
-            nn.AvgPool2d(kernel_size=2, stride=2),
-            # Layer 4
-            nn.Conv2d(128, 256, kernel_size=3, padding=0, stride=1),
-            nn.ReLU(),
-            nn.AvgPool2d(kernel_size=2, stride=2)
-        )
-        # Create fully-connected layers
-        self.fc_layers = nn.Sequential(
-            # FC layer
-            nn.Linear(4096, 1024),
-            nn.ReLU(),
-            # Classification layer
-            nn.Linear(1024, 2)
-        )
-
-    # Forward
-    def forward(self, x):
-        x = self.conv_layers(x)
-        x = x.view(x.size(0), -1)
-        x = self.fc_layers(x)
-        return x
-import face_classification
 
 def detectFaceOpenCVDnn(net, frame, index, frame_count, destDir):
     saveName = destDir + "/img" + str(index) + "_" + str(frame_count) + ".jpg"
@@ -123,50 +86,54 @@ if __name__ == "__main__" :
     conf_threshold = 0.7
 
     source = 0
-    sourceDir = "../../AI-Projectwork/datasets/UCF-101-unfolded/a"
-    destDir = "UCF-101-Inv"
+    baseSourceDir = "../../AI-Projectwork/datasets/UCF-101"
+    baseDestDir = "../../AI-Projectwork/datasets/UCF-101-Inv"
 
     # Create dest images folder
-    if not os.path.exists(destDir):
-        os.makedirs(destDir)
+    if not os.path.exists(baseDestDir):
+        os.makedirs(baseDestDir)
 
-    # Create folder for CycleGan computation
-    if not os.path.exists(destDir):
-        os.makedirs(destDir)
+    # For each folder in the source folder
+    for extIndex, videoDir in enumerate(os.listdir(baseSourceDir)):
+        sourceDir = baseSourceDir + "/" + videoDir
+        destDir = baseDestDir + "/" + videoDir
+        if not os.path.exists(destDir):
+            os.makedirs(destDir)
 
-    # For each video in the arg folder
-    for index, filename in enumerate(os.listdir(sourceDir)):
-
-        source = sourceDir + "/" + filename
-        cap = cv2.VideoCapture(source)
-        hasFrame, frame = cap.read()
-
-        vid_writer = cv2.VideoWriter('output-dnn-{}.avi'.format(str(source).split(".")[0]),cv2.VideoWriter_fourcc('M','J','P','G'), 15, (frame.shape[1],frame.shape[0]))
-
-        frame_count = 0
-        tt_opencvDnn = 0
-        while(1):
-
+        # For each video in source video folder
+        for index, filename in enumerate(os.listdir(sourceDir)):
+            source = sourceDir + "/" + filename
+            destination = destDir + "/" + str(index)
+            if not os.path.exists(destination):
+                os.makedirs(destination)
+            print(f"Elaborazione: {source}")
+            cap = cv2.VideoCapture(source)
             hasFrame, frame = cap.read()
-            if not hasFrame:
-                break
-            frame_count += 1
+            vid_writer = cv2.VideoWriter('output-dnn-{}.avi'.format(str(source).split(".")[0]),cv2.VideoWriter_fourcc('M','J','P','G'), 15, (frame.shape[1],frame.shape[0]))
+            frame_count = 0
+            tt_opencvDnn = 0
 
-            t = time.time()
-            outOpencvDnn, bboxes = detectFaceOpenCVDnn(net,frame, index, frame_count, destDir)
-            tt_opencvDnn += time.time() - t
-            fpsOpencvDnn = frame_count / tt_opencvDnn
-            label = "OpenCV DNN ; FPS : {:.2f}".format(fpsOpencvDnn)
-            cv2.putText(outOpencvDnn, label, (10,50), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (0, 0, 255), 3, cv2.LINE_AA)
+            while(1):
+                hasFrame, frame = cap.read()
+                if not hasFrame:
+                    break
+                frame_count += 1
 
-            cv2.imshow("Face Detection Comparison", outOpencvDnn)
+                t = time.time()
+                outOpencvDnn, bboxes = detectFaceOpenCVDnn(net,frame, index, frame_count, destination)
+                tt_opencvDnn += time.time() - t
+                fpsOpencvDnn = frame_count / tt_opencvDnn
+                label = "OpenCV DNN ; FPS : {:.2f}".format(fpsOpencvDnn)
+                cv2.putText(outOpencvDnn, label, (10,50), cv2.FONT_HERSHEY_SIMPLEX, 1.4, (0, 0, 255), 3, cv2.LINE_AA)
 
-            vid_writer.write(outOpencvDnn)
-            if frame_count == 1:
-                tt_opencvDnn = 0
+                cv2.imshow("Face Detection Comparison", outOpencvDnn)
 
-            k = cv2.waitKey(10)
-            if k == 27:
-                break
-        cv2.destroyAllWindows()
-        vid_writer.release()
+                vid_writer.write(outOpencvDnn)
+                if frame_count == 1:
+                    tt_opencvDnn = 0
+
+                k = cv2.waitKey(10)
+                if k == 27:
+                    break
+            cv2.destroyAllWindows()
+            vid_writer.release()
