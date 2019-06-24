@@ -9,7 +9,7 @@ import shutil
 # parser.add_argument("--val_size", type=float, default=0.2, help="Size of the validation set. (default:0.2)")
 # args = parser.parse_args()
 
-args = {"source": "../datasets/UCF-101", "dest": "../datasets/UCF-101-unfolded", "val_size": 0.1, "train_size": 0.7, "test_size": 0.2}
+args = {"source": "../datasets/UCF-101", "dest": "../datasets/UCF-101-splitted", "val_size": 0.1, "train_size": 0.7, "test_size": 0.2}
 
 # Crea le cartelle di destinazione (se non esistono)
 if not os.path.exists(args["dest"]):
@@ -40,12 +40,17 @@ for class_dir in class_dirs:
                                    size=int(num_elem*args["test_size"]),
                                    replace=False)
 
-    # os.mkdir(os.path.join(dest_train, class_dir))
-    # os.mkdir(os.path.join(dest_val, class_dir))
+    if not os.path.exists(os.path.join(dest_train, class_dir)):
+        os.mkdir(os.path.join(dest_train, class_dir))
+    if not os.path.exists(os.path.join(dest_test, class_dir)):
+        os.mkdir(os.path.join(dest_test, class_dir))
+    if not os.path.exists(os.path.join(dest_val, class_dir)):
+        os.mkdir(os.path.join(dest_val, class_dir))
+        
     for index, filename in enumerate(os.listdir(class_dir_path)):
             if index in val_indices:
-                shutil.copy(os.path.join(class_dir_path, filename), dest_val)
+                shutil.copy(os.path.join(class_dir_path, filename), os.path.join(dest_val, class_dir))
             elif index in test_indices:
-                shutil.copy(os.path.join(class_dir_path, filename), dest_test)
+                shutil.copy(os.path.join(class_dir_path, filename), os.path.join(dest_test, class_dir))
             else:
-                shutil.copy(os.path.join(class_dir_path, filename), dest_train)
+                shutil.copy(os.path.join(class_dir_path, filename), os.path.join(dest_train, class_dir))

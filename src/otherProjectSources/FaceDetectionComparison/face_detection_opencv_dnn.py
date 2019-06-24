@@ -14,6 +14,7 @@ from CNN import CNN
 import face_classification
 sys.path.insert(0, '../../pytorch-CycleGAN-and-pix2pix')
 import test_custom
+import timeit
 
 def detectFaceOpenCVDnn(net, frame, index, frame_count, destDir):
     saveName = destDir + "/img" + str(index) + "_" + str(frame_count) + ".jpg"
@@ -86,8 +87,8 @@ if __name__ == "__main__" :
     conf_threshold = 0.7
 
     source = 0
-    baseSourceDir = "../../AI-Projectwork/datasets/UCF-101"
-    baseDestDir = "../../AI-Projectwork/datasets/UCF-101-Inv"
+    baseSourceDir = "../../AI-Projectwork/datasets/UCF-101-splitted/train"
+    baseDestDir = "../../AI-Projectwork/datasets/UCF-101-Inv/train"
 
     # Create dest images folder
     if not os.path.exists(baseDestDir):
@@ -102,6 +103,8 @@ if __name__ == "__main__" :
 
         # For each video in source video folder
         for index, filename in enumerate(os.listdir(sourceDir)):
+            # start = timeit.default_timer()
+
             source = sourceDir + "/" + filename
             destination = destDir + "/" + str(index)
             if not os.path.exists(destination):
@@ -137,3 +140,6 @@ if __name__ == "__main__" :
                     break
             cv2.destroyAllWindows()
             vid_writer.release()
+
+            # stop = timeit.default_timer()
+            # print('Time: ', stop - start)
