@@ -1,3 +1,8 @@
+### STEP 5: UCF-101-INV VIDEO CREATION ###
+# Script usato per creare i video a partire dalle frame estratte da UCF-101 e invertite rispetto alla razza bianca/nera.
+# Viene utilizzato ffmpeg tramite comando lanciato da terminale dallo script.
+### --------------------------------------- ###
+
 import os
 import sys
 

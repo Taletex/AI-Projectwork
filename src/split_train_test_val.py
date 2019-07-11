@@ -1,13 +1,11 @@
+### STEP 3: UCF-101 split ###
+# Script usato per splittare UCF-101 in test, train e val.
+### --------------------------------------- ###
+
 import os
 import argparse
 import numpy as np
 import shutil
-
-# parser = argparse.ArgumentParser("Create a train and validation directory from a single directory")
-# parser.add_argument("--source", help="The path of the source directory")
-# parser.add_argument("--dest", help="name for the new directory")
-# parser.add_argument("--val_size", type=float, default=0.2, help="Size of the validation set. (default:0.2)")
-# args = parser.parse_args()
 
 args = {"source": "../datasets/UCF-101", "dest": "../datasets/UCF-101-splitted", "val_size": 0.1, "train_size": 0.7, "test_size": 0.2}
 
@@ -46,7 +44,7 @@ for class_dir in class_dirs:
         os.mkdir(os.path.join(dest_test, class_dir))
     if not os.path.exists(os.path.join(dest_val, class_dir)):
         os.mkdir(os.path.join(dest_val, class_dir))
-        
+
     for index, filename in enumerate(os.listdir(class_dir_path)):
             if index in val_indices:
                 shutil.copy(os.path.join(class_dir_path, filename), os.path.join(dest_val, class_dir))

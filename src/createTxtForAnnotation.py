@@ -1,3 +1,8 @@
+### STEPS 6, 7, 8: VIDEO CLASSIFICATION TASK ###
+# Script usato per creare i file .txt usati dal video classifier per generare l'annotation file .json.
+# Questi file txt indicano per ogni video, se questo appartiene al test set o al training set.
+### --------------------------------------- ###
+
 import os
 import sys
 import pandas as pd
@@ -15,8 +20,7 @@ def main():
 
     #una volta UCF-101-Inv, una volta UCF-101-splitted
     for j in range(0, 2):
-        #baseSourceDir = "../../../../media/alessandro/HDD500GB/datasets/UCF-101-Inv" #una volta UCF-101-Inv, una volta UCF-101-splitted
-        baseSourceDir = "../datasets/UCF-101-" + folders[j]
+        baseSourceDir = "../datasets/UCF-101-" + folders[j] #baseSourceDir = "../../../../media/alessandro/HDD500GB/datasets/UCF-101-Inv"
         baseDestDir = "metadata/" + folders[j]
         actions = {0: "train", 1: "test"}
         labels = load_labels("metadata/classInd.txt")

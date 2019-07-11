@@ -1,7 +1,9 @@
-FROM SCRATCH
+# Comandi da utilizzare per eseguire il video classifier su UCF101 e la macchina locale
+
+# FROM SCRATCH
 python main.py --root_path ../../../../media/alessandro/HDD500GB/datasets/UCF-101/ --video_path UCF-101-videos/jpg --annotation_path ucf101_01.json --result_path results --dataset ucf101 --model resnet --model_depth 50 --n_classes 101 --batch_size 128 --n_threads 4 --checkpoint 1
 
-FROM FINE TUNED
+# FINE TUNED
 python main.py --root_path ~/data --video_path ucf101_videos/jpg --annotation_path ucf101_01.json \
 --result_path results --dataset ucf101 --n_classes 400 --n_finetune_classes 101 \
 --pretrain_path models/resnet-34-kinetics.pth --ft_begin_index 4 \
