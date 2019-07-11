@@ -109,3 +109,13 @@ datasets
 cuda-testing
 cuda-9.2-env
 cyclegan_checkpoints
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/cuda-testing
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/1_net_D_A.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/1_net_D_B.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/1_net_G_A.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/1_net_G_B.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_D_A.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_D_B.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_G_A.pth
+src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_G_B.pth
+
