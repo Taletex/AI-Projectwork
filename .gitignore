@@ -118,4 +118,5 @@ src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cycl
 src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_D_B.pth
 src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_G_A.pth
 src/otherProjectSources/pytorch-CycleGAN-and-pix2pix/checkpoints/blackwhite_cyclegan/latest_net_G_B.pth
-
+src/commands
+src/rename.py
