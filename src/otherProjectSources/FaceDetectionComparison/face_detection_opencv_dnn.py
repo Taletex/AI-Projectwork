@@ -42,7 +42,7 @@ def detectFaceOpenCVDnn(net, frame, index, frame_count, destDir):
             # crop and save the face image from the current frame
             croppedImg = T.functional.crop(img, y1, x1, (y2-y1), (x2-x1))
             croppedImg.save("./img.jpg","JPEG", icc_profile=img.info.get('icc_profile'))
-            saveName = destDir + "/img" + str(index) + "_" + str(frame_count) + "_F.jpg"
+            saveName = destDir + "/img" + str(index) + "_" + str(frame_count) + ".jpg"
 
             # save in the CycleGAN test folders
             croppedImg.save("../../pytorch-CycleGAN-and-pix2pix/datasets/UCF-101/testA/img.jpg","JPEG", icc_profile=img.info.get('icc_profile'))
@@ -101,15 +101,16 @@ if __name__ == "__main__" :
         if not os.path.exists(destDir):
             os.makedirs(destDir)
 
+
         # For each video in source video folder
         for index, filename in enumerate(os.listdir(sourceDir)):
-            # start = timeit.default_timer()
 
+            # start = timeit.default_timer()
             source = sourceDir + "/" + filename
             destination = destDir + "/" + str(index)
             if not os.path.exists(destination):
                 os.makedirs(destination)
-            print(f"Elaborazione: {source}")
+            print(f"Elaborazione {index}: {source}")
             cap = cv2.VideoCapture(source)
             hasFrame, frame = cap.read()
             vid_writer = cv2.VideoWriter('output-dnn-{}.avi'.format(str(source).split(".")[0]),cv2.VideoWriter_fourcc('M','J','P','G'), 15, (frame.shape[1],frame.shape[0]))
