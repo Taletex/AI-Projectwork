@@ -17,7 +17,7 @@ def calculate_video_results(output_buffer, video_id, test_results, class_names):
     video_results = []
     for i in range(sorted_scores.size(0)):
         video_results.append({
-            'label': class_names[locs[i]],
+            'label': class_names[locs[i].item()],
             'score': sorted_scores[i]
         })
 
@@ -46,17 +46,16 @@ def test(data_loader, model, opt, class_names):
 
         for j in range(outputs.size(0)):
             if not (i == 0 and j == 0) and targets[j] != previous_video_id:
-                calculate_video_results(output_buffer, previous_video_id,
-                                        test_results, class_names)
+                calculate_video_results(output_buffer, previous_video_id, test_results, class_names)
                 output_buffer = []
             output_buffer.append(outputs[j].data.cpu())
             previous_video_id = targets[j]
 
         if (i % 100) == 0:
-            with open(
-                    os.path.join(opt.result_path, '{}.json'.format(
-                        opt.test_subset)), 'w') as f:
-                json.dump(test_results, f)
+            f = open(os.path.join(opt.result_path, '{}.txt'.format(opt.test_subset)), "w+")
+            for elem in enumerate(test_results):
+                f.write(str(elem))
+            print(test_results)
 
         batch_time.update(time.time() - end_time)
         end_time = time.time()
@@ -68,7 +67,6 @@ def test(data_loader, model, opt, class_names):
                   len(data_loader),
                   batch_time=batch_time,
                   data_time=data_time))
-    with open(
-            os.path.join(opt.result_path, '{}.json'.format(opt.test_subset)),
-            'w') as f:
-        json.dump(test_results, f)
+    f = open(os.path.join(opt.result_path, '{}.txt'.format(opt.test_subset)), "w+")
+    for elem in enumerate(test_results):
+        f.write(str(elem))

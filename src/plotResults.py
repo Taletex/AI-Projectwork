@@ -16,35 +16,35 @@ def main():
     history_accuracy = {"train": [], "val": [], "test": []}
 
     trainResults = pd.read_csv('../datasets/UCF-101-Std/results/train.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
-    valResults = pd.read_csv('../datasets/UCF-101-Std/results/val.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
+    testResults = pd.read_csv('../datasets/UCF-101-Std/results/val.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
 
     # Update history
     for index, row in trainResults.iterrows():
         history_loss["train"].append(float(row['loss'][7:13]))
         history_accuracy["train"].append(float(row['acc'][7:13]))
 
-    for index, row in valResults.iterrows():
-        history_loss["val"].append(float(row['loss'][7:13]))
-        history_accuracy["val"].append(float(row['acc'][7:13]))
+    for index, row in testResults.iterrows():
+        history_loss["test"].append(float(row['loss'][7:13]))
+        history_accuracy["test"].append(float(row['acc'][7:13]))
 
-    bestAccuracy = max(history_accuracy["val"])
-    bestConfigIdx = history_accuracy["val"].index(bestAccuracy)
-    print(f"Best configuration at epoch {bestConfigIdx} with validation accuracy {bestAccuracy}\n")
+    bestAccuracy = max(history_accuracy["test"])
+    bestConfigIdx = history_accuracy["test"].index(bestAccuracy)
+    print(f"Best configuration at epoch {bestConfigIdx} with test accuracy {bestAccuracy}\n")
 
     # Plot loss
     plt.title("Loss")
-    for split in ["train", "val", "test"]:
+    for split in ["train", "test"]:
         plt.plot(history_loss[split], label=split)
     plt.legend()
-    plt.savefig("../progress/video_classifier/loss.png")
+    plt.savefig("../progress/video_classifier/std/loss.png")
     plt.show()
 
     # Plot accuracy
     plt.title("Accuracy")
-    for split in ["train", "val", "test"]:
+    for split in ["train", "test"]:
         plt.plot(history_accuracy[split], label=split)
     plt.legend()
-    plt.savefig("../progress/video_classifier/accuracy.png")
+    plt.savefig("../progress/video_classifier/std/accuracy.png")
     plt.show()
 
 

@@ -111,6 +111,7 @@ if __name__ == '__main__':
         target_transform = ClassLabel()
         validation_data = get_validation_set(
             opt, spatial_transform, temporal_transform, target_transform)
+        len(validation_data)
         val_loader = torch.utils.data.DataLoader(
             validation_data,
             batch_size=opt.batch_size,

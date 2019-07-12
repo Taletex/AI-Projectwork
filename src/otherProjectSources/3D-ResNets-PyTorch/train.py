@@ -10,7 +10,6 @@ from utils import AverageMeter, calculate_accuracy
 def train_epoch(epoch, data_loader, model, criterion, optimizer, opt,
                 epoch_logger, batch_logger):
     print('train at epoch {}'.format(epoch))
-
     model.train()
 
     batch_time = AverageMeter()
