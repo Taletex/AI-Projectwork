@@ -16,11 +16,11 @@ def load_labels(label_csv_path):
     return labels
 
 def main():
-    folders = {0: "splitted", 1: "Inv"}
+    folders = {0: "Splitted", 1: "Inv-Video-Splitted", 2: "Mrg-Splitted"}
 
     #una volta UCF-101-Inv, una volta UCF-101-splitted
-    for j in range(0, 2):
-        baseSourceDir = "../datasets/UCF-101-" + folders[j] #baseSourceDir = "../../../../media/alessandro/HDD500GB/datasets/UCF-101-Inv"
+    for j in range(0, 3):
+        baseSourceDir = "../../../../../media/alessandro/HDD500GB/datasets/UCF-101-" + folders[j] #baseSourceDir = "../../../../media/alessandro/HDD500GB/datasets/UCF-101-Inv"
         baseDestDir = "metadata/" + folders[j]
         actions = {0: "train", 1: "test"}
         labels = load_labels("metadata/classInd.txt")
@@ -38,11 +38,7 @@ def main():
 
                 # For each video in source video folder
                 for innIndex, name in enumerate(os.listdir(sourceVideoDir)):
-                    fileName = videoDir + "/" + name
-
-                    if(actions[x] == "train"):
-                        fileName = fileName + " " + str(labels[videoDir])
-
+                    fileName = videoDir + "/" + name + " " + str(labels[videoDir])
                     nameList.append(fileName)
 
             nameList.sort()
