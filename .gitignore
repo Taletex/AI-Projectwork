@@ -103,9 +103,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
 # datasets
 datasets
+
+# other stuff
 cuda-testing
 cuda-9.2-env
 cyclegan_checkpoints
