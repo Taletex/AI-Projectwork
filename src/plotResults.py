@@ -15,8 +15,8 @@ def main():
     history_loss = {"train": [], "val": [], "test": []}
     history_accuracy = {"train": [], "val": [], "test": []}
 
-    trainResults = pd.read_csv('../datasets/UCF-101-Std/results/train.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
-    testResults = pd.read_csv('../datasets/UCF-101-Std/results/val.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
+    trainResults = pd.read_csv('../datasets/UCF-101-Inv/results/train.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
+    testResults = pd.read_csv('../datasets/UCF-101-Inv/results/val.log', delimiter = "\t", dtype={'epoch': "int64", 'lr': "float64"})
 
     # Update history
     for index, row in trainResults.iterrows():
@@ -36,7 +36,7 @@ def main():
     for split in ["train", "test"]:
         plt.plot(history_loss[split], label=split)
     plt.legend()
-    plt.savefig("../progress/video_classifier/std/loss.png")
+    plt.savefig("../progress/video_classifier/inv/loss.png")
     plt.show()
 
     # Plot accuracy
@@ -44,7 +44,7 @@ def main():
     for split in ["train", "test"]:
         plt.plot(history_accuracy[split], label=split)
     plt.legend()
-    plt.savefig("../progress/video_classifier/std/accuracy.png")
+    plt.savefig("../progress/video_classifier/inv/accuracy.png")
     plt.show()
 
 
