@@ -16,7 +16,7 @@ References available (italian only) at:
 
 
 ## Specifications
-1. We have trained the CycleGAN model https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) on the dataset of white and black people's face https://cloud.perceive.dieei.unict.it/index.php/s/6DAy4nKfwCs7ofi). CycleGAN generates two models: the first one transforms white faces in black faces, the second one does the opposite.
+1. We have trained the CycleGAN model (https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) on the dataset of white and black people's face https://cloud.perceive.dieei.unict.it/index.php/s/6DAy4nKfwCs7ofi). CycleGAN generates two models: the first one transforms white faces in black faces, the second one does the opposite.
 2. We have downloaded the UCF-101 dataset (https://www.crcv.ucf.edu/data/UCF101.php), a dataset of action recognition (input -> video, output -> class).
 3. We have divided UCF-101 in Utrain, Uval, Utest.
 4. We have trained a classifier on the faces, so that given an image of the black_white dataset it returns its class (black or white).
@@ -36,7 +36,16 @@ References available (italian only) at:
 - **Video classifier on Utrain + Utrain-inv - Utest**
 ![progress](progress/video_classifier/mrg/resume.png)
 
+
 ## Hardware
+- CPU: AMD Ryzen 5 2600x
+- Graphic Card: Gygabyte GeForce RTX 2070 Windforce
+- RAM: 32GB ddr4 3200MHz
+- SSD: Crucial MX500 500GB
 
 
 ## External Projects
+We have used the following external projects:
+- CycleGAN: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
+- Face detection model: https://www.learnopencv.com/face-detection-opencv-dlib-and-deep-learning-c-python/
+- VideoClassifier: https://github.com/kenshohara/3D-ResNets-PyTorch
