@@ -1,13 +1,42 @@
 # AI-Projectwork
 Project work of Cognitive Computing and Artificial Intelligence course of University of Catania.
 
-## Specifiche
-1. Train the CycleGAN model https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) on the dataset of white and black people's face https://cloud.perceive.dieei.unict.it/index.php/s/6DAy4nKfwCs7ofi). 
-CycleGAN generates two models: the first transforms white faces in black faces, the second one transforms white faces in black faces
-2. Download the UCF-101 dataset (https://www.crcv.ucf.edu/data/UCF101.php), a dataset of action recognition (input -> video, output -> class).
-3. Separate UCF-101 in Utrain, Uval, Utest.
-4. Allenate un classificatore sui volti, che data un'immagine del dataset black_white ritorni la classe (bianco vs nero).
-5. Utilizzate un modello di face detection (scegliete tra https://www.learnopencv.com/face-detection-opencv-dlib-and-deep-learning-c-python/) e generate una nuova versione di Utrain in cui, in ogni immagine, estraete ogni volto, classificate se bianco o nero, e lo convertite nel colore opposto tramite il modello corrispondente in CycleGAN. Generate in questo modo il dataset Utrain-inv.
-6. Allenate il classificatore video I3D (https://github.com/piergiaj/pytorch-i3d) su Utrain, e verificate le prestazioni su Utest.
-7. Allenate il classificatore video I3D su Utrain-inv, e verificate le prestazioni su Utest.
-8. Allenate il classificatore video I3D sull'unione tra Utrain e Utrain-inv, e verificate le prestazioni su Utest.
+
+## Table of Contents
+- [References](#References)
+- [Specifications](#Specifications)
+- [Progress](#Progress)
+- [Hardware](#Hardware)
+- [External Projects](#External Projects)
+
+
+## References
+References available (italian only) at:
+- doc/Presentazione.pptx
+
+
+## Specifications
+1. We have trained the CycleGAN model https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) on the dataset of white and black people's face https://cloud.perceive.dieei.unict.it/index.php/s/6DAy4nKfwCs7ofi). CycleGAN generates two models: the first transforms white faces in black faces, the second one transforms white faces in black faces
+2. We have downloaded the UCF-101 dataset (https://www.crcv.ucf.edu/data/UCF101.php), a dataset of action recognition (input -> video, output -> class).
+3. We have divided UCF-101 in Utrain, Uval, Utest.
+4. We have trained a classifier on the faces so that given an image of the black_white dataset it returns its class (black vs white).
+5. We have used a face detection model (choose between https://www.learnopencv.com/face-detection-opencv-dlib-and-deep-learning-c-python/) and generated a new version of Utrain in which, in every image, we have extracted the face, classified it (black vs white) and converted it in the opposite colour throught the corresponding CycleGAN model. We have so generated the Utra-inv dataset.
+6. We have trained the 3D ResNets for Action Recognition video classifier (https://github.com/kenshohara/3D-ResNets-PyTorch) using a resnet-18 on Utrain and verified its performance on Utest.
+7. We have trained the 3D ResNets for Action Recognition video classifier on Utrain-inv, and verified its performance on Utest.
+8. We have trained the 3D ResNets for Action Recognition video classifier on the union of Utrain and Utrain-inv, and verified its performance on Utest.
+
+
+## Progress
+- **Video classifier on Utrain - Utest**
+![progress](progress/video_classifier/std/resume.png)
+
+- **Video classifier on Utrain-inv - Utest**
+![progress](progress/video_classifier/inv/resume.png)
+
+- **Video classifier on Utrain + Utrain-inv - Utest**
+![progress](progress/video_classifier/mrg/resume.png)
+
+## Hardware
+
+
+## External Projects
