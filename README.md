@@ -7,7 +7,7 @@ Project work of Cognitive Computing and Artificial Intelligence course of Univer
 - [Specifications](#Specifications)
 - [Progress](#Progress)
 - [Hardware](#Hardware)
-- [External Projects](#External Projects)
+- [ExternalProjects](#External Projects)
 
 
 ## References
